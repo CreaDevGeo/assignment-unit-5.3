@@ -12,6 +12,7 @@ function addToCollection (title, artist, yearPublished){
     let album = {
         title: title,
         artist: artist,
+        tracks: [],
         yearPublished: yearPublished
     } // end declaration of album object literal with input parameters
     collection.push(album);
@@ -71,12 +72,11 @@ function showCollection(collectionToShow){
 function addTrack(artistName, albumTitle, trackName, trackDuration) {
     let track = [trackName, trackDuration];
     console.log(`Running addTrack. Please enter "artist name", "album title", "track name", and "track duration".`);
-  
     // Adding tracks as property to albums in collection
-    for (i = 0; i < collection.length; i++) {
+    for (let i = 0; i < collection.length; i++) {
       if (collection[i].artist === artistName && collection[i].title === albumTitle){
         collection[i].tracks = [trackName, trackDuration];
-        console.log(`You successfully added the song, ${trackName} to the album, ${albumTitle}!`);
+        console.log(`You successfully added the song, "${trackName}" to the album, "${albumTitle}"!`);
         return true;
       } // end album to add track to
     } // end all albums loop
@@ -86,11 +86,11 @@ function addTrack(artistName, albumTitle, trackName, trackDuration) {
       return false;
     }
     // If the artist to add the track to doesn't exist in the collection
-    if (collection[i].artist !== artistName) {
-      console.log(`Cannot add song. The artist "${artistName}" is not in this collection.`);
+    if (collection[i].artist !== artistName || collection[i].title !== albumTitle){
+      console.log("Cannot add song. Either the album or artist name entered is not located in this collection.");
       return false;
     } // end artist not in collection
-    console.log(`Cannot add song. The album "${albumTitle}" is not in this collection.`);
+    console.log("Sorry something went wrong. Plase try again.");
     return false;
     // end album not in collection
   } // end addTrack function
@@ -102,7 +102,7 @@ console.log("*** - TESTING - ***");
 // - addToCollectionc Function Testing -
 console.log("*** - addToCollection FUNCTION TESTING - ***"); // adding albums to collection
 console.log(addToCollection("Sugar Rush", "Pewee Babies", 2025));
-console.log(addToCollection("Brainwashed in Zombie Juice", "Apocalypse Rockers", 2132));
+console.log(addToCollection("Those Undying", "Apocalypse Rockers", 2132));
 console.log(addToCollection("Not So Curable", "Apocalypse Rockers", 2165));
 console.log(addToCollection("Fairy Tales", "Pewee Babies", 2028));
 console.log(addToCollection("Hold the Anchovies", "We Fish Flounders", 2047));
@@ -137,10 +137,16 @@ console.log(search()); // expect no albums searched
 // - addTrack Function Testing -
 console.log("*** - addTrack FUNCTION TESTING - ***");
 console.log(showCollection(collection));
-// console.log(addTrack()); //expect found, so first conditional
 console.log(collection);
-console.log(`You added ${collection[2].cool = "Butt"}`);
-console.log(collection[2].cool);
-console.log(addTrack("We Fish Flounders", "Hold the Anchovies", "Those Salty Sardines", "2:56")); //expect found, so first conditional
+//expect added track
+console.log(addTrack("We Fish Flounders", "Hold the Anchovies", "A Seadog's Salty Sardines", "2:56")); 
+console.log(addTrack("We Fish Flounders", "Hold the Anchovies", "Goldfish Paradise", "2:56")); 
+console.log(addTrack("Pewee Babies", "Fairy Tales", "Nightly Neverlands", "3:19" ));
+console.log(addTrack("Pewee Babies", "Sugar Rush", "Candy to Vanquish Veggies!", "3:32" ));
+console.log(addTrack("Pewee Babies", "Sugar Rush", "Candy Coma", "2:41" ));
+console.log(addTrack("Apocalypse Rockers", "Those Undying", "Gone to the Rapture", "2:16")); 
+console.log(collection);
+// console.log(addTrack("Colors", "Warm Hues", "Red Rainbox", "1:38"));
+
 // - End addTrack Function Testing -
 // // - END TESTING SECTION -
